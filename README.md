@@ -1,4 +1,4 @@
-Resume Builder project website built for project at Vault Tec Security.
+Resume Builder project website was built for the project at Vault-Tec Security in September 2024.
 
 Project hosted on https://emadjshah.github.io/resume-builder-v1/.
 
