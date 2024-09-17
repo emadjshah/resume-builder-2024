@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Resume Builder</title>
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+</head>
+<body>
+
+  <div class="container">
+    <h1> Resume Builder</h1>
+
+    <form id="resumeForm">
+      <div class="form-section" draggable="true" id="section-name">
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" placeholder="e.g., John Doe" required>
+      </div>
+
+      <div class="form-section" draggable="true" id="section-email">
+        <label for="email">Email:</label>
+        <input type="email" id="email" placeholder="e.g., john@example.com" required>
+      </div>
+
+      <div class="form-section" draggable="true" id="section-phone">
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" placeholder="e.g., 123-456-7890" required>
+      </div>
+      
+      <div class="form-section" draggable="true" id="section-skills">
+        <label for="skills">Skills:</label>
+        <input type="text" id="skills" placeholder="e.g., HTML, CSS, JavaScript" required>
+      </div>
+
+      <div class="form-section" draggable="true" id="section-experience">
+        <label for="experience">Experience:</label>
+        <textarea id="experience" placeholder="List your professional experience here" required></textarea>
+      </div>
+
+      <div class="form-section" draggable="true" id="section-education">
+        <label for="education">Education:</label>
+        <textarea id="education" placeholder="List your education here" required></textarea>
+      </div>
+
+      <div class="form-section" draggable="true" id="section-projects">
+        <label for="projects">Projects:</label>
+        <textarea id="projects" placeholder="e.g., Portfolio website, Personal project, etc." required></textarea>
+      </div>
+
+      <div class="form-section" draggable="true" id="section-certifications">
+        <label for="certifications">Certifications:</label>
+        <input type="text" id="certifications" placeholder="e.g., AWS Certified, PMP">
+      </div>
+
+      <div class="form-section" draggable="true" id="section-languages">
+        <label for="languages">Languages:</label>
+        <input type="text" id="languages" placeholder="e.g., English, Spanish, French">
+      </div>
+
+      <button type="submit">Generate Resume</button>
+    </form>
+
+    <div id="resumePreview"></div>
+
+    <button id="downloadBtn" style="display: none;">Download Resume</button>
+    <button id="undoBtn" style="display: none;">Undo Last Move</button>
+
+  </div>
+  <footer>
+    <p>Created by Emad Shah - Version 3.0</p>
+    </footer>
+  <script src="app.js"></script>
+
+</body>
+</html>
+
+
