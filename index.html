@@ -5,14 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Resume Builder</title>
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-
 </head>
 <body>
 
   <div class="container">
-    <h1> Resume Builder</h1>
+    <h1>Resume Builder</h1>
 
     <form id="resumeForm">
       <div class="form-section" draggable="true" id="section-name">
@@ -52,7 +51,7 @@
 
       <div class="form-section" draggable="true" id="section-certifications">
         <label for="certifications">Certifications:</label>
-        <input type="text" id="certifications" placeholder="e.g., AWS Certified, PMP">
+        <input type="text" id="certifications" placeholder="e.g., AWS Certified, CCNA, Web based certificates">
       </div>
 
       <div class="form-section" draggable="true" id="section-languages">
@@ -67,14 +66,12 @@
 
     <button id="downloadBtn" style="display: none;">Download Resume</button>
     <button id="undoBtn" style="display: none;">Undo Last Move</button>
-
   </div>
+  
   <footer>
     <p>Created by Emad Shah - Version 3.0</p>
-    </footer>
+  </footer>
   <script src="app.js"></script>
 
 </body>
 </html>
-
-

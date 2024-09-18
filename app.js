@@ -2,13 +2,14 @@ const formSections = document.querySelectorAll('.form-section');
 let draggedElement = null;
 let initialOrder = [];
 
-// Save the first order of form sections
+// Save the initial order of form sections
 function saveInitialOrder() {
   initialOrder = Array.from(formSections).map(section => section.id);
 }
 
+// Handle drag and drop events
 formSections.forEach(section => {
-  section.addEventListener('dragstart', (event) => {
+  section.addEventListener('dragstart', () => {
     draggedElement = section;
     setTimeout(() => { section.style.display = 'none'; }, 0);
   });
@@ -20,11 +21,11 @@ formSections.forEach(section => {
     }, 0);
   });
 
-  section.addEventListener('dragover', (event) => {
+  section.addEventListener('dragover', event => {
     event.preventDefault();
   });
 
-  section.addEventListener('drop', (event) => {
+  section.addEventListener('drop', event => {
     event.preventDefault();
     if (section !== draggedElement) {
       const form = document.getElementById('resumeForm');
@@ -34,11 +35,13 @@ formSections.forEach(section => {
   });
 });
 
+// Save the current order to local storage
 function saveCurrentOrder() {
   const currentOrder = Array.from(formSections).map(section => section.id);
   localStorage.setItem('sectionOrder', JSON.stringify(currentOrder));
 }
 
+// Restore the order from local storage
 function restoreOrder(order) {
   const form = document.getElementById('resumeForm');
   order.forEach(sectionId => {
@@ -47,12 +50,14 @@ function restoreOrder(order) {
   });
 }
 
+// Undo button functionality
 document.getElementById('undoBtn').addEventListener('click', () => {
   restoreOrder(initialOrder);
   localStorage.removeItem('sectionOrder');
 });
 
-document.getElementById("resumeForm").addEventListener("submit", function(event) {
+// Form submission to generate resume preview
+document.getElementById("resumeForm").addEventListener("submit", function (event) {
   event.preventDefault();
   const name = document.getElementById("name").value;
   const email = document.getElementById("email").value;
@@ -100,45 +105,56 @@ document.getElementById("resumeForm").addEventListener("submit", function(event)
   document.getElementById("downloadBtn").style.display = "block";
 });
 
-document.getElementById("downloadBtn").addEventListener("click", function() {
+// Improved PDF generation with html2canvas and jsPDF
+document.getElementById("downloadBtn").addEventListener("click", function () {
   const resume = document.getElementById("resumePreview");
 
- try {
-    html2canvas(resume).then(canvas => {
-      const imgData = canvas.toDataURL("image/png");
-      const pdf = new jsPDF({ orientation: 'portrait', unit: 'mm', format: 'a4' });
-      const imgWidth = 210;
-      const pageHeight = 297;
-      const imgHeight = canvas.height * imgWidth / canvas.width;
-      let heightLeft = imgHeight;
-      let position = 0;
+  if (!resume) {
+    console.error("Element with ID 'resumePreview' not found!");
+    alert("Resume preview section is missing.");
+    return;
+  }
 
+  // Ensure html2canvas and jsPDF are correctly imported
+  html2canvas(resume, {
+    scale: 2,  // Higher scale for better resolution
+    useCORS: true,  // Handles cross-origin issues if any images are involved
+    logging: true   // Helps log detailed debug info
+  }).then(canvas => {
+    console.log("Canvas successfully created!");
+
+    const imgData = canvas.toDataURL("image/png");
+    const { jsPDF } = window.jspdf; // Access jsPDF from the correct namespace
+    const pdf = new jsPDF({
+      orientation: 'portrait',
+      unit: 'mm',
+      format: 'a4'
+    });
+
+    const imgWidth = 210; // A4 width in mm
+    const pageHeight = 297; // A4 height in mm
+    const imgHeight = (canvas.height * imgWidth) / canvas.width;
+
+    let heightLeft = imgHeight;
+    let position = 0;
+
+    // Add the first page of the image
+    pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+    heightLeft -= pageHeight;
+
+    // Add more pages if the content overflows
+    while (heightLeft > 0) {
+      position = heightLeft - imgHeight;
+      pdf.addPage();
       pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
       heightLeft -= pageHeight;
+    }
 
-      while (heightLeft > 0) {
-        position = heightLeft - imgHeight;
-        pdf.addPage();
-        pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-        heightLeft -= pageHeight;
-      }
+    // Save the PDF
+    pdf.save("resume.pdf");
 
-      pdf.save("resume.pdf");
-    }).catch(err => {
-      console.error("Error generating the PDF:", err);
-      alert("An error occurred while generating the PDF. Please try again.");
-    });
-  } catch (error) {
-    console.error("Error in the download process:", error);
-    alert("Failed to initiate the download. Please refresh the page and try again.");
-  }
-});
-
-document.addEventListener('DOMContentLoaded', () => {
-  const savedOrder = JSON.parse(localStorage.getItem('sectionOrder'));
-  if (savedOrder) {
-    restoreOrder(savedOrder);
-  } else {
-    saveInitialOrder();
-  }
+  }).catch(err => {
+    console.error("Error generating the PDF:", err);
+    alert("An error occurred while generating the PDF. Please check the console for more details.");
+  });
 });
