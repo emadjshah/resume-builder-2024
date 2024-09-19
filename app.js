@@ -50,7 +50,7 @@ function restoreOrder(order) {
   });
 }
 
-// Undo button functionality
+// Undo button
 document.getElementById('undoBtn').addEventListener('click', () => {
   restoreOrder(initialOrder);
   localStorage.removeItem('sectionOrder');
@@ -105,7 +105,6 @@ document.getElementById("resumeForm").addEventListener("submit", function (event
   document.getElementById("downloadBtn").style.display = "block";
 });
 
-// Improved PDF generation with html2canvas and jsPDF
 document.getElementById("downloadBtn").addEventListener("click", function () {
   const resume = document.getElementById("resumePreview");
 
@@ -115,34 +114,34 @@ document.getElementById("downloadBtn").addEventListener("click", function () {
     return;
   }
 
-  // Ensure html2canvas and jsPDF are correctly imported
+  // Importing html2canvas and jsPDF 
   html2canvas(resume, {
-    scale: 2,  // Higher scale for better resolution
-    useCORS: true,  // Handles cross-origin issues if any images are involved
-    logging: true   // Helps log detailed debug info
+    scale: 2,  
+    useCORS: true,
+    logging: true
   }).then(canvas => {
     console.log("Canvas successfully created!");
 
     const imgData = canvas.toDataURL("image/png");
-    const { jsPDF } = window.jspdf; // Access jsPDF from the correct namespace
+    const { jsPDF } = window.jspdf; 
     const pdf = new jsPDF({
       orientation: 'portrait',
       unit: 'mm',
       format: 'a4'
     });
 
-    const imgWidth = 210; // A4 width in mm
-    const pageHeight = 297; // A4 height in mm
+    const imgWidth = 210; 
+    const pageHeight = 297; 
     const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
     let heightLeft = imgHeight;
     let position = 0;
 
-    // Add the first page of the image
+    // Adding first page of the image
     pdf.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
     heightLeft -= pageHeight;
 
-    // Add more pages if the content overflows
+    // Adding pages if the content overflows
     while (heightLeft > 0) {
       position = heightLeft - imgHeight;
       pdf.addPage();
@@ -150,7 +149,6 @@ document.getElementById("downloadBtn").addEventListener("click", function () {
       heightLeft -= pageHeight;
     }
 
-    // Save the PDF
     pdf.save("resume.pdf");
 
   }).catch(err => {
