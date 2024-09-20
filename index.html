@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Resume Builder</title>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 
@@ -13,50 +14,51 @@
 <body>
 
   <div class="container">
+    
     <h1>Resume Builder</h1>
 
     <form id="resumeForm">
-      <div class="form-section" draggable="true" id="section-name">
+      <div class="form-section" id="section-name">
         <label for="name"><i class="fas fa-user"></i> Full Name:</label>
         <input type="text" id="name" placeholder="e.g., John Doe" required>
       </div>
 
-      <div class="form-section" draggable="true" id="section-email">
+      <div class="form-section" id="section-email">
         <label for="email"><i class="fas fa-envelope"></i> Email:</label>
         <input type="email" id="email" placeholder="e.g., john@example.com" required>
       </div>
 
-      <div class="form-section" draggable="true" id="section-phone">
+      <div class="form-section" id="section-phone">
         <label for="phone"><i class="fas fa-phone"></i> Phone:</label>
         <input type="text" id="phone" placeholder="e.g., 123-456-7890" required>
       </div>
 
-      <div class="form-section" draggable="true" id="section-skills">
+      <div class="form-section" id="section-skills">
         <label for="skills"><i class="fas fa-code"></i> Skills:</label>
         <input type="text" id="skills" placeholder="e.g., HTML, CSS, JavaScript" required>
       </div>
 
-      <div class="form-section" draggable="true" id="section-experience">
+      <div class="form-section" id="section-experience">
         <label for="experience"><i class="fas fa-briefcase"></i> Experience:</label>
         <textarea id="experience" placeholder="List your professional experience here" required></textarea>
       </div>
 
-      <div class="form-section" draggable="true" id="section-education">
+      <div class="form-section" id="section-education">
         <label for="education"><i class="fas fa-graduation-cap"></i> Education:</label>
         <textarea id="education" placeholder="List your education here" required></textarea>
       </div>
 
-      <div class="form-section" draggable="true" id="section-projects">
+      <div class="form-section" id="section-projects">
         <label for="projects"><i class="fas fa-project-diagram"></i> Projects:</label>
         <textarea id="projects" placeholder="e.g., Portfolio website, Personal project, etc." required></textarea>
       </div>
 
-      <div class="form-section" draggable="true" id="section-certifications">
+      <div class="form-section" id="section-certifications">
         <label for="certifications"><i class="fas fa-certificate"></i> Certifications:</label>
         <input type="text" id="certifications" placeholder="e.g., AWS Certified, CCNA, Web based certificates">
       </div>
 
-      <div class="form-section" draggable="true" id="section-languages">
+      <div class="form-section" id="section-languages">
         <label for="languages"><i class="fas fa-language"></i> Languages:</label>
         <input type="text" id="languages" placeholder="e.g., English, Spanish, French">
       </div>
@@ -71,8 +73,9 @@
   </div>
 
   <footer>
-    <p>Created by Emad Shah - Version 3.0</p>
+    <p>Created by Emad Shah - Version 4.0</p>
   </footer>
+  
   <script src="app.js"></script>
 
 </body>
