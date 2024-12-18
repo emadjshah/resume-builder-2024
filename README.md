@@ -1,5 +1,5 @@
-Resume Builder website was built for a project in September 2024.
+A simple project built in September 2024 for creating resumes.
 
-Project is hosted on https://emadjshah.github.io/resume-builder-2024/.
+The project is hosted on https://emadjshah.github.io/resume-builder-2024/.
 
-Improvements on the project are underway.
+Improvements will be made to the project whenever time allows.
